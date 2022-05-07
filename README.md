@@ -23,7 +23,7 @@ For the timer that keeps the time, in which each player must do their move,
   
 The above for default value 2 sec, results in 19531. Because TIMER1 overflows when reaches the price 65535, t_count is given the price 65535-Target= 46004 which will be assigned to TCNT1 each time, the timer restarts. In case another value is given through the command ST <SP> [1-9] <CR> after the case is detected by ΑVR_Reciever and checked that the given value is acceptable, then through the formula, the appropriate value will be input in t_count. For cases where the Target will be greater than 65535, t_count will initially be set to 65535 and at the same time will be calculated t_extend = target-65535. When an overflow occurs, the value 65535-t_extend will be assigned in TCNT1, to measure the extra time and then assign timeout = 1. The timeout is the variable that AVR checks to diagnose whether there has been a time violation or not.
 
-## Gamer Core
+## Game Core
 As mentioned in the introduction, the game will be played on an 8x8 board,
 implemented by void BoardInit () . The board will be essentially an 8x8 two-dimensional board, volatile uint8_t board [8] [8]. By using BoardInit, all its positions are initialized as <SP> (32). Positions [3,3] and [4,4] take the value W (87) symbolizing White, while [3,4] and [4,3] take the value B (66) for
 the Black. The initial Board is shown below:
