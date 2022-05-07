@@ -27,7 +27,8 @@ The above for default value 2 sec, results in 19531. Because TIMER1 overflows wh
 As mentioned in the introduction, the game will be played on an 8x8 board,
 implemented by void BoardInit () . The board will be essentially an 8x8 two-dimensional board, volatile uint8_t board [8] [8]. By using BoardInit, all its positions are initialized as <SP> (32). Positions [3,3] and [4,4] take the value W (87) symbolizing White, while [3,4] and [4,3] take the value B (66) for
 the Black. The initial Board is shown below:
-  
+
+![explanation image2](https://github.com/gflengas/AtMega16-Othello-game-implementation/blob/master/pictures/2.png)  
   
 The implementation of the full function of the game was based on 2 core parts: a) User-AVR communication interface, b) Central do-while loop, which ensures the smooth execution of the players movements.
 
