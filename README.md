@@ -86,7 +86,10 @@ The following is a brief description of the valid_moves and make_move functions:
 The game will terminate when: a) one of the 2 players sends an end game or quit the game, b) there are no seats available on the chessboard, and c) no player has available movement. The checkers will then be counted and the AVR will announce the winner as well through a suitable message, as well as by lighting one of the 3 LEDs that are connected via PORTB: Led1 for AVR win, Led2 for the player win, and Led3 for a draw.        
           
 ## AVR Tactic 
-    
+Regarding the tactics that the AVR will follow, after the proposed algorithms  have been studied (AlphaBeta, Monte Carlo), we chose to implement a variant of its AlphaBeta algorithm. This choice was due to the small size of the dashboard, which enables us to explore all possible options within the small available time we have.
+          
+In the previous section, we mentioned the **avr_move** function, which executes the move of the AVR. The way of thinking is this: For every available avr move, it asses what would be the best possible answer from the opponent and chooses the one that will have the least benefits for the opponent. To achieve this it saves the board and moves it to temporary arrays and then selects one by one the available moves and executes them. When it executes a move, it calls the valid_moves (Opponent) function to obtain them available moves of the opponent. Then. calculates the opponent's move, which would bring him the best possible score via the int best_move function (char player) and returns the maximum score that the opponent will achieve with the specific AVR move. This score is compared to previous scores and in case it is lower, the coordinates of the avr move are stored, since this move is better than the previous. It then restores the board to the state before executing it and try the next available until it has no moves left. Finally, it restores the board for one last time and perform the best possible move it found.
+          
 ## Execution
 The result of the code execution is shown in the images below:
                  
