@@ -82,8 +82,11 @@ The **void make_move(int row,int col, char turn)** function was created to execu
 The following is a brief description of the valid_moves and make_move functions:
 - **int valid_moves(char turn):** This function helps to detect the available moves of the player playing in each round. Initially, it empties the moves array, filling it with gaps (Space = 32 ASCII). Then a search starts inside the board. Checks the boxes one by one, if a checker is in a box, then he places the checker in the moves in the same position. But if the box is empty, it checks if any of its neighboring boxes are checkers of the opponent. In case he finds an opponent, a search begins in each direction "stepping" on opponent checkers, until he finds a gap or a player checker. If he finds a gap, then terminates the search in this direction, while if it finds the player's checker sets the box from which it started as an available movement of the player, marking it on the board moves with V.
 - **void make_move(int row, int col, char turn):** This function places the player's checker in the given coordinates and starts a search in any direction by "stepping" on rival checkers until he finds a checker of the player. When he finds one, he starts moving upside down until he finds the starting position and changes the opponent's checkers one by one.
-  
+
+The game will terminate when: a) one of the 2 players sends an end game or quit the game, b) there are no seats available on the chessboard, and c) no player has available movement. The checkers will then be counted and the AVR will announce the winner as well through a suitable message, as well as by lighting one of the 3 LEDs that are connected via PORTB: Led1 for AVR win, Led2 for the player win, and Led3 for a draw.        
+          
 ## AVR Tactic 
+    
 ## Execution
 The result of the code execution is shown in the images below:
                  
