@@ -74,3 +74,5 @@ the player to send him his move, while in case he has no available move, will be
 there are no other moves available and the game ends. When avr detects
 a move, it is processed through the following procedure:
        
+
+It will first read the coordinates in ascii (converting the letter to number) and will transfer them in decimal form to serve our implementation. If the user has not exceeded the allowed time and if these coordinates of the array moves, there is the value V (86 in ascii), then proceeds to the execution of the move. In this way, it is ensured that we have valid motion and time. If there is a violation in one of these conditions, avr sends the appropriate message and waits for its response user.
