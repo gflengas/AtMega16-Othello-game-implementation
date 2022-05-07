@@ -19,7 +19,8 @@ actions. The way it recognizes each command is by comparing each character store
 For the timer that keeps the time, in which each player must do their move,
 8-bit TIMER0 was initially used, but due to problems that emerged after crystal adjustment, TIMER1 was utilized. Based on use of Overflow Interrupt TIMER1_OVF_vect and using Prescaler 1024, we proceeded in the application of the following formula:
   
-
+![explanation image](https://github.com/gflengas/AtMega16-Othello-game-implementation/blob/master/pictures/1.png)
+  
 The above for default value 2 sec, results in 19531. Because TIMER1 overflows when reaches the price 65535, t_count is given the price 65535-Target= 46004 which will be assigned to TCNT1 each time, the timer restarts. In case another value is given through the command ST <SP> [1-9] <CR> after the case is detected by ΑVR_Reciever and checked that the given value is acceptable, then through the formula, the appropriate value will be input in t_count. For cases where the Target will be greater than 65535, t_count will initially be set to 65535 and at the same time will be calculated t_extend = target-65535. When an overflow occurs, the value 65535-t_extend will be assigned in TCNT1, to measure the extra time and then assign timeout = 1. The timeout is the variable that AVR checks to diagnose whether there has been a time violation or not.
 
 ## Gamer Core
@@ -66,3 +67,5 @@ while((Moves_Done<64)&&(Passes<2)&&(End_Game!=1)&&(New_Game!=1))
 calculate_score()
 announce winner
 ```
+
+       
