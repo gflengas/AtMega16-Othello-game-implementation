@@ -68,5 +68,9 @@ while((Moves_Done<64)&&(Passes<2)&&(End_Game!=1)&&(New_Game!=1))
 calculate_score()
 announce winner
 ```
-
+          
+Each time the black player goes first. If he's your opponent, then as long as he has available moves, which are detected by the function int valid_moves (char turn) and stored in the array moves, avr is waiting for
+the player to send him his move, while in case he has no available move, will be waiting for PASS. If both players play PASS one after the other, it means 
+there are no other moves available and the game ends. When avr detects
+a move, it is processed through the following procedure:
        
