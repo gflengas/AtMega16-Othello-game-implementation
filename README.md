@@ -77,6 +77,12 @@ a move, it is processed through the following procedure:
 
 It will first read the coordinates in ascii (converting the letter to number) and will transfer them in decimal form to serve our implementation. If the user has not exceeded the allowed time and if these coordinates of the array moves, there is the value V (86 in ascii), then proceeds to the execution of the move. In this way, it is ensured that we have valid motion and time. If there is a violation in one of these conditions, avr sends the appropriate message and waits for its response user.
 
+The **void make_move(int row,int col, char turn)** function was created to execute a move, which depending on the coordinates and the color of the player makes appropriate changes and saves them on the board, and increases moves_done. In the end, he sends Ok, it ends the loop in which we were stuck waiting for the player to move and restarts the timer.If avr is the white player and has moves available then via the **int avr_move (char turn)**, will execute its move.
+
+The following is a brief description of the valid_moves and make_move functions:
+- **int valid_moves(char turn):** This function helps to detect the available moves of the player playing in each round. Initially, it empties the moves array, filling it with gaps (Space = 32 ASCII). Then a search starts inside the board. Checks the boxes one by one, if a checker is in a box, then he places the checker in the moves in the same position. But if the box is empty, it checks if any of its neighboring boxes are checkers of the opponent. In case he finds an opponent, a search begins in each direction "stepping" on opponent checkers, until he finds a gap or a player checker. If he finds a gap, then terminates the search in this direction, while if it finds the player's checker sets the box from which it started as an available movement of the player, marking it on the board moves with V.
+- **void make_move(int row, int col, char turn):** This function places the player's checker in the given coordinates and starts a search in any direction by "stepping" on rival checkers until he finds a checker of the player. When he finds one, he starts moving upside down until he finds the starting position and changes the opponent's checkers one by one.
+  
 ## AVR Tactic 
 ## Execution
 The result of the code execution is shown in the images below:
