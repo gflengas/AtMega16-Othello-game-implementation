@@ -23,4 +23,46 @@ For the timer that keeps the time, in which each player must do their move,
 The above for default value 2 sec, results in 19531. Because TIMER1 overflows when reaches the price 65535, t_count is given the price 65535-Target= 46004 which will be assigned to TCNT1 each time, the timer restarts. In case another value is given through the command ST <SP> [1-9] <CR> after the case is detected by ΑVR_Reciever and checked that the given value is acceptable, then through the formula, the appropriate value will be input in t_count. For cases where the Target will be greater than 65535, t_count will initially be set to 65535 and at the same time will be calculated t_extend = target-65535. When an overflow occurs, the value 65535-t_extend will be assigned in TCNT1, to measure the extra time and then assign timeout = 1. The timeout is the variable that AVR checks to diagnose whether there has been a time violation or not.
 
 ## Gamer Core
+As mentioned in the introduction, the game will be played on an 8x8 board,
+implemented by void BoardInit () . The board will be essentially an 8x8 two-dimensional board, volatile uint8_t board [8] [8]. By using BoardInit, all its positions are initialized as <SP> (32). Positions [3,3] and [4,4] take the value W (87) symbolizing White, while [3,4] and [4,3] take the value B (66) for
+the Black. The initial Board is shown below:
   
+  
+The implementation of the full function of the game was based on 2 core parts: a) User-AVR communication interface, b) Central do-while loop, which ensures the smooth execution of the players movements.
+
+We implemented a) for Milestone 1 and added the necessary pieces of code to ensure the correct communication of the 2 players. This was achieved mainly by using while-loops, which "stuck" the code until the
+corresponding wait variable takes the value 0 after the AVR receives the appropriate message. It is interesting how avr will deal with the movement of the opponent player when he receives the message MV <SP> {[A-H] [1,8]} <CR>, which we will discuss below. b) is the core of the game and in form of pseudocode the primary idea is the following:
+```
+board_init;
+Get Players Color
+do:
+  if (black player):
+    if (enemy's turn):
+      if (valid_moves('W')):
+        Passes = 0;
+        PrintBoard(moves)
+        read player's moves
+      else:
+        passes++
+        if(passes<2):
+        Ask player to pass
+        else:
+        Neither Player got a move, Game over
+    if (avr's turn):
+      if(valid_moves('W')): 
+          Passes = 0;
+          avr_move('w')
+          Moves_Done++
+      else:
+        passes++
+        if(passes<2):
+          Avr passes
+        else:
+          Neither Player got a move, Gameover 
+       black player next round
+      if (white player):
+        (. . .)
+while((Moves_Done<64)&&(Passes<2)&&(End_Game!=1)&&(New_Game!=1))
+calculate_score()
+announce winner
+```
